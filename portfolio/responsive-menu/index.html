@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../../dist/bundle.css" rel="stylesheet">
+    <title>Responsive Menu</title>
+</head>
+<body>
+    <!-- component --> 
+    <div class="flex items-center h-screen"> 
+        <header class="w-full bg-blue-600">
+
+            <!-- navbar -->
+            <nav class="container py-5 px-4 mx-auto text-white">
+                <div class="flex relative w-full items-center justify-between ">
+                    <a class="text-3xl font-bold font-heading" href="#">
+                        Logo 
+                    </a>
+                    <!-- Nav Links -->
+                    <ul id="menu" class=" ">
+                        <li><a class="hover:text-gray-200" href="#">Home</a></li>
+                        <li><a class="hover:text-gray-200" href="#">About Us</a></li>
+                        <li><a class="hover:text-gray-200" href="#">Portfolio</a></li>
+                        <li><a class="hover:text-gray-200" href="#">Contact Us</a></li>
+                    </ul>
+                    <!-- Header Icons -->
+                    <div class="flex items-center space-x-5 items-center">
+                        <!-- Favourite -->
+                        <a class="hover:text-gray-200" href="#">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                        <!-- Cart -->
+                        <a class="flex items-center hover:text-gray-200" href="#">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <!-- Sign In / Register -->
+                        <a class="flex items-center hover:text-gray-200" href="#"> 
+                            <i class="fa-regular fa-user"></i>
+                        </a> 
+                        <a id="mobile-menu-toggle" href="#" class="block md:hidden">
+                            <i class="fa-solid fa-bars"></i>
+                        </a> 
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+    <script src="../../dist/bundle.js"></script>
+    <script>
+
+        const menu = document.getElementById('menu');
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+           
+        mobileMenuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        })
+    </script>
+</body>
+</html>
