@@ -7,8 +7,18 @@ class PokemonService {
         this.pokedex = new Pokedex.Pokedex();
     }
 
-    async getPokemonsList(limit = 20) {
+    async getPokemonsList(offset = 0, limit = 20) {
         try {
+            var promises = []
+            const responseList = await this.pokedex.getPokemonsList({ offset, limit });
+                
+            responseList.results.forEach(element => {
+                var promise = this.pokedex.getPokemonsByName(element.name)    
+                promises.push(promise)
+            });
+            const responseDetails = await Promise.all(promises);
+            return responseDetails
+            
         } catch (error) {
             throw new Error("Error fetching Pokémon data");
         }
@@ -18,8 +28,8 @@ class PokemonService {
 // Define a class responsible for displaying Pokémon cards
 class HtmlBuilder {
 
-    constructor(containerId) {
-        this.container = document.getElementById(containerId);
+    constructor(container) {
+        this.container = container;
     }
   
     generateBgColorByTypes(types) {
@@ -31,14 +41,14 @@ class HtmlBuilder {
     }
   
     displayPokemonCards(pokemons) {
-         
+         console.log(pokemons)
     }
 }
   
   // Function to initiate the app and fetch/display Pokémon cards
 async function startApp() {
     const pokemonService = new PokemonService();
-    const htmlBuilder = new HtmlBuilder("content");
+    const htmlBuilder = new HtmlBuilder(document.getElementById('content'));
 
     try {
         // Fetch the list of Pokémon from the PokeAPI
