@@ -62,71 +62,63 @@ class HtmlBuilder {
     constructor(container) {
         this.container = container;
     }
-  
+    
     generateBgColorByTypes(types) {
-        class HtmlBuilder {
-            constructor(container) {
-                this.container = container;
+        const typeColors = {
+            normal: "#A8A878",
+            fire: "#F08030",
+            water: "#6890F0",
+            electric: "#F8D030",
+            grass: "#78C850",
+            ice: "#98D8D8",
+            fighting: "#C03028",
+            poison: "#A040A0",
+            ground: "#E0C068",
+            flying: "#A890F0",
+            psychic: "#F85888",
+            bug: "#A8B820",
+            rock: "#B8A038",
+            ghost: "#705898",
+            dragon: "#7038F8",
+            dark: "#705848",
+            steel: "#B8B8D0",
+            fairy: "#EE99AC"
+        };
+
+        let bgColor = "#ccc"; // Default color if type is not found in the typeColors object
+        types.forEach(type => {
+            if (type.type.name in typeColors) {
+                bgColor = typeColors[type.type.name];
+                // Break the loop once a matching type is found
+                return;
             }
-        
-            generateBgColorByTypes(types) {
-                const typeColors = {
-                    normal: "#A8A878",
-                    fire: "#F08030",
-                    water: "#6890F0",
-                    electric: "#F8D030",
-                    grass: "#78C850",
-                    ice: "#98D8D8",
-                    fighting: "#C03028",
-                    poison: "#A040A0",
-                    ground: "#E0C068",
-                    flying: "#A890F0",
-                    psychic: "#F85888",
-                    bug: "#A8B820",
-                    rock: "#B8A038",
-                    ghost: "#705898",
-                    dragon: "#7038F8",
-                    dark: "#705848",
-                    steel: "#B8B8D0",
-                    fairy: "#EE99AC"
-                };
-        
-                let bgColor = "#ccc"; // Default color if type is not found in the typeColors object
-                types.forEach(type => {
-                    if (type.type.name in typeColors) {
-                        bgColor = typeColors[type.type.name];
-                        // Break the loop once a matching type is found
-                        return;
-                    }
-                });
-        
-                return bgColor;
-            }
-        
-            createCard(pokemon) {
-                const bgColor = this.generateBgColorByTypes(pokemon.types);
-                let card = document.createElement("div");
-                card.classList.add("pokemon-card");
-                card.style.backgroundColor = bgColor;
-                card.innerHTML = `
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${pokemon.name}" class="pokemon-image">
-                    <h3 class="pokemon-name">${pokemon.name}</h3>
-                `;
-                this.container.appendChild(card);
-            }
-        
-            // ... (other methods)
-        }        
-         
+        });
+
+        return bgColor;
     }
 
     createCard(pokemon) {
-        let div = document.createElement("div");
-        div.className=" border border-gray-200 rounded-lg shadow p-5";
-        
-        div.innerHTML = '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+pokemon.id+'.png" />'+pokemon.name;
-        this.container.append(div); 
+        const bgColor = this.generateBgColorByTypes(pokemon.types);
+        console.log('asd')
+        let card = document.createElement("div");
+        card.classList.add("pokemon-card", "border",  "border-gray-200", "rounded-lg" , "shadow", "p-5");
+        card.style.backgroundColor = bgColor;
+        card.innerHTML = `
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${pokemon.name}" class="pokemon-image">
+            <h3 class="pokemon-name">${pokemon.name}</h3>
+        `;
+        this.container.appendChild(card);
     }
+      
+         
+
+    // createCard(pokemon) {
+    //     let div = document.createElement("div");
+    //     div.className=" border border-gray-200 rounded-lg shadow p-5";
+        
+    //     div.innerHTML = '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+pokemon.id+'.png" />'+pokemon.name;
+    //     this.container.append(div); 
+    // }
   
     displayPokemonCards(pokemons) {
         this.container.scrollIntoView({ behavior: "smooth", block: "end" });
